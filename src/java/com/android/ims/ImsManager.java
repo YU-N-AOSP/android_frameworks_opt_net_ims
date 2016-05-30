@@ -1175,8 +1175,19 @@ public class ImsManager {
         public boolean isSameProxy(int serviceClass) {
             return (mServiceClass == serviceClass);
         }
-
         @Override
+        public void registrationConnected(int imsRadioTech) {
+            // Note: imsRadioTech value maps to RIL_RADIO_TECHNOLOGY
+            //       values in ServiceState.java.
+            if (DBG) {
+                log("registrationConnected :: imsRadioTech=" + imsRadioTech);
+            }
+
+            if (mListener != null) {
+                mListener.onImsConnected();
+            }
+        }
+
         public void registrationConnected() {
             if (DBG) {
                 log("registrationConnected ::");
@@ -1188,6 +1199,18 @@ public class ImsManager {
         }
 
         @Override
+        public void registrationProgressing(int imsRadioTech) {
+            // Note: imsRadioTech value maps to RIL_RADIO_TECHNOLOGY
+            //       values in ServiceState.java.
+            if (DBG) {
+                log("registrationProgressing :: imsRadioTech=" + imsRadioTech);
+            }
+
+            if (mListener != null) {
+                mListener.onImsProgressing();
+            }
+        }
+
         public void registrationProgressing() {
             if (DBG) {
                 log("registrationProgressing ::");
